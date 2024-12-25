@@ -1,0 +1,10 @@
+.hero-gradient-1 {
+  width: 60px;
+  height: 100%;
+  border-radius: 30px;
+  position: absolute;
+  transform: rotate(299deg) translate(314%, 12%);
+  filter: blur(140px);
+  background-color: #E387E9;
+}
+
