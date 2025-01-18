@@ -9,17 +9,17 @@ import { FaLink, FaChevronRight } from "react-icons/fa6";
 import axios from 'axios';
 import gsap from 'gsap';
 
+interface Project {
+    id: number;
+    project_title: string;
+    project_description: string;
+    technologies_used: string[];
+    repo_link: string;
+    site_link: string;
+    project_image_url: string | null;
+    created_at: string;
+}
 const Projects = () => {
-    interface Project {
-        id: number;
-        project_title: string;
-        project_description: string;
-        technologies_used: string[];
-        repo_link: string;
-        site_link: string;
-        project_image_url: string | null;
-    }
-
     const [projects, setProjects] = useState<Project[]>([]);
     const [displayedProjects, setDisplayedProjects] = useState<Project[]>([]);
     const [isInView, setIsInView] = useState(false);
@@ -68,7 +68,8 @@ const Projects = () => {
             axios.get('/api/projects')
                 .then((response) => {
                     const fetchedProjects = response.data.projects;
-                    setProjects(fetchedProjects);
+                    const sortedProjects = fetchedProjects.sort((a: Project, b: Project) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+                    setProjects(sortedProjects);
                     setDisplayedProjects(fetchedProjects.slice(0, 6));
                     setIsLoading(false);
                 })
