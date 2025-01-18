@@ -20,27 +20,38 @@ import character from './character.png'
 import iphone14 from './iPhone14.png'
 import ipad from './iPad.png'
 import account from './account.png'
-export { 
-  programming, 
-  radial, 
-  globe, 
-  skillsSet, 
-  gradientCurve, 
-  signal, 
-  ai, 
-  reactjs, 
-  nextjs, 
-  mobiledev, 
-  nodejs, 
-  figma, 
-  tailwindcss, 
-  csharp, 
-  java, 
-  javascript, 
-  database ,
+import sLogo from './s_logo.png'
+import framerMotion from './framer-motion.svg'
+import redux from './redux.png'
+import materialUi from './material-ui.svg'
+import graphql from './graphql.png'
+
+export {
+  programming,
+  radial,
+  globe,
+  skillsSet,
+  gradientCurve,
+  signal,
+  ai,
+  reactjs,
+  nextjs,
+  mobiledev,
+  nodejs,
+  figma,
+  tailwindcss,
+  csharp,
+  java,
+  javascript,
+  database,
   offers,
   character,
   iphone14,
   ipad,
-  account
+  account,
+  sLogo,
+  framerMotion,
+  redux,
+  materialUi,
+  graphql
 };

@@ -21,6 +21,10 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   color: #d2d2d2;
   --tw-bg-opacity: 1;
@@ -38,7 +42,7 @@ body {
 
 .card-border {
   --tw-bg-opacity: 1;
-  border-color: #121212;
+  border-color: #1a1a1a;
   border-width: 1px;
 }
 
@@ -48,11 +52,9 @@ body {
 }
 
 .gradient-color {
-  background-image: linear-gradient(
-    135deg,
-    #9170f0 0%,
-    #9170f0 33.33%,
-    #d4647b 66.67%,
-    #d36f83 100%
-  );
+  background-image: linear-gradient(135deg,
+      #9170f0 0%,
+      #9170f0 33.33%,
+      #d4647b 66.67%,
+      #d36f83 100%);
 }

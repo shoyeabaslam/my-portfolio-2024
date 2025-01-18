@@ -1,4 +1,4 @@
-import { ai, csharp, database, figma, java, javascript, mobiledev, nextjs, nodejs, reactjs, tailwindcss } from "@/assets/images";
+import { ai, csharp, database, figma, java, javascript, mobiledev, nextjs, nodejs, reactjs, tailwindcss, graphql, framerMotion, redux, materialUi } from "@/assets/images";
 
 export const skillIconimages = [
     { image: javascript, glowEffectColor: '#f0db4f90' },
@@ -11,5 +11,9 @@ export const skillIconimages = [
     { image: csharp, glowEffectColor: '#9b5f9690' },
     { image: database, glowEffectColor: '#223890' },
     { image: mobiledev, glowEffectColor: '#fc475690' },
-    { image: ai, glowEffectColor: '#b1d3f090' }
+    { image: ai, glowEffectColor: '#b1d3f090' },
+    { image: graphql, glowEffectColor: '#e535ab90' },
+    { image: framerMotion, glowEffectColor: '#0055ff90' },
+    { image: redux, glowEffectColor: '#764abc90' },
+    { image: materialUi, glowEffectColor: '#0081cb90' }
 ];

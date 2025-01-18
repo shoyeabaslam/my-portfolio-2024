@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
-import GearSvgWrapper from '../SVGWrappers/GearSvgWrapper';
 
 gsap.registerPlugin(MotionPathPlugin);
 
@@ -9,7 +8,6 @@ gsap.registerPlugin(MotionPathPlugin);
 const AboutSVGWrapper = () => {
     const containerRef = useRef<HTMLDivElement>(null)
     useEffect(() => {
-        console.log('e')
         gsap.to(containerRef.current, {
             filter: "drop-shadow(0 0 100px rgba(145, 112, 240, 0.5)) drop-shadow(0 0 45px #9170f070)",
             duration: 0.2,

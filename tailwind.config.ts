@@ -11,11 +11,13 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        cardColor: "#0d0d0d",
+        cardColor: "#0a0a0a",
         strokeColor: "var(--strokeColor)",
-        textColor:"#b3b3b3",
-        primaryColor:"#C233CC",
-        primaryColorLight:"#F39EFA"
+        textColor: "#b3b3b3",
+        primaryColor: "#C233CC",
+        primaryColorLight: "#F39EFA",
+        shadowColor: "#1a1a1a1a",
+        lighterCardColor: "#1f1f1f"
       },
       animation: {
         "spin-slow": "spin 10s linear infinite",
@@ -23,10 +25,10 @@ const config: Config = {
       boxShadow: {
         glow: "0 -28px 84px -24px #e2e8ff1f inset;",
       },
-      fontFamily:{
-       concertOne: "Concert One, sans-serif",
-       Poppins: "Poppins, sans-serif",
-       Inspiration:"Inspiration, serif"
+      fontFamily: {
+        concertOne: "Concert One, sans-serif",
+        Poppins: "Poppins, sans-serif",
+        Inspiration: "Inspiration, serif"
       }
     },
   },

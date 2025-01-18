@@ -1,68 +1,74 @@
+"use client"
 import { account } from '@/assets/images'
-import Image from 'next/image'
-import React, { FC } from 'react'
+import Image, { StaticImageData } from 'next/image'
+import React, { FC, useEffect, useState, useRef } from 'react'
 import { RiDoubleQuotesR } from "react-icons/ri";
 import './Testimonials.css'
 import Arrow2SVGWrapper from '../SVGWrappers/Arrow2SVGWrapper';
-const userTestimonials = [
+import axios from 'axios';
+import gsap from 'gsap';
+
+interface Testimonial {
+    id?: string;
+    name: string;
+    designation: string;
+    feedback: string;
+    image_url?: string | StaticImageData;
+}
+
+const dummyTestimonials: Testimonial[] = [
     {
-        "name": "Alice Johnson",
-        "designation": "software engineer",
-        "description": "This service is fantastic! It helped me quickly identify the safety of the ingredients in my skincare products. Highly recommended for anyone who wants to ensure they're using safe products."
+        id: '1',
+        name: 'Rajesh Kumar',
+        designation: 'Technical Project Manager',
+        feedback: 'Shoyeab is an exceptional developer with a deep understanding of frontend and backend technologies. His work on projects like "Kashimirizon" demonstrates his ability to deliver robust and scalable solutions.',
+        image_url: account,
     },
     {
-        "name": "Michael Brown",
-        "designation": "software engineer",
-        "description": "Great tool for checking product safety. The detailed analysis and recommendations are very helpful. It would be even better with more health condition-specific advice."
+        id: '2',
+        name: 'Aditi Sharma',
+        designation: 'Software Engineer',
+        feedback: 'I had the pleasure of collaborating with Shoyeab on several projects. His expertise in Next.js, React Native, and Firebase is evident in the high-quality applications he develops.',
+        image_url: account,
     },
     {
-        "name": "Sophia Lee",
-        "designation": "software engineer",
-        "description": "I'm very impressed with the accuracy and detail of the ingredient analysis. As someone with sensitive skin, this tool has been invaluable in helping me choose the right products."
+        id: '3',
+        name: 'Priya Singh',
+        designation: 'Senior Developer',
+        feedback: 'Shoyeab’s dedication to learning and growth is unmatched. His certifications and hands-on projects showcase his commitment to mastering the latest tools and frameworks.',
+        image_url: account,
+    },
+
+    {
+        id: '4',
+        name: 'Neha Gupta',
+        designation: 'UX Designer',
+        feedback: 'Shoyeab is a brilliant collaborator. His skills in React and animation libraries like GSAP make his projects visually engaging and functionally sound.',
+        image_url: account,
     },
     {
-        "name": "James Smith",
-        "designation": "software engineer",
-        "description": "Very useful for anyone conscious about what goes into their products. The overall safety percentage and ingredient breakdown are easy to understand. A must-have tool!"
+        id: '5',
+        name: 'Swati Mishra',
+        designation: 'Internship Supervisor',
+        feedback: 'During his internship, Shoyeab displayed exceptional problem-solving skills and a strong grasp of the SDLC process. His contributions to the Leave Management System project were instrumental in its success.',
+        image_url: account,
     },
     {
-        "name": "Emily Davis",
-        "designation": "software engineer",
-        "description": "I love how easy it is to use this service. Just upload the ingredient list and get an instant safety report. It has saved me a lot of time and worry. Highly recommended!"
+        id: '6',
+        name: 'Arjun Nair',
+        designation: 'Full-Stack Developer',
+        feedback: 'Shoyeab’s knowledge of technologies like ASP.NET, MSSQL, and React is impressive. He consistently delivers high-quality solutions tailored to project requirements.',
+        image_url: account,
     },
-    {
-        "name": "Daniel Garcia",
-        "designation": "software engineer",
-        "description": "A great tool for checking product safety, especially for people with allergies or specific health conditions. It would be nice to have more detailed health-specific advice, but overall it's excellent."
-    },
-    {
-        "name": "Olivia Martinez",
-        "designation": "software engineer",
-        "description": "Amazing service! The safety evaluations are thorough and easy to understand. This has become my go-to tool for checking any new product I want to try."
-    },
-    {
-        "name": "William Rodriguez",
-        "designation": "software engineer",
-        "description": "Very helpful for evaluating the safety of personal care products. The ingredient analysis is detailed and informative. A bit more customization for individual health conditions would be great."
-    },
-    {
-        "name": "Isabella Wilson",
-        "designation": "software engineer",
-        "description": "As someone with multiple allergies, this tool has been a lifesaver. It gives me peace of mind knowing I can quickly check the safety of any product before using it."
-    },
-    {
-        "name": "Henry Lopez",
-        "designation": "software engineer",
-        "description": "Excellent tool for anyone concerned about product safety. The detailed ingredient analysis and recommendations are very helpful. Would love to see more features in the future!"
-    }
-]
-const TestimonialCard: FC<{ name: string, designation: string, description: string }> = ({ name, designation, description }) => {
+];
+
+export const TestimonialCard: FC<Testimonial> = ({ name, designation, feedback, image_url }) => {
     return (
-        <div className='w-[350px] h-[180px] mr-4 bg-cardColor card-border py-2 px-4 rounded-md flex flex-col justify-between relative'>
-            <p className='text-sm text-textColor'>{description}</p>
-            <div className='flex space-x-2 items-center'>
-                <div className='w-[40px]'>
-                    <Image className='w-full h-full bg-contain' src={account} width={500} height={500} alt='account' />
+        <div className='w-[400px] h-[180px] mr-4 bg-cardColor card-border py-2 px-4 rounded-md flex flex-col justify-between relative'>
+            <p className='text-sm text-textColor'>{feedback}</p>
+            <div className='flex space-x-5 items-center'>
+                <div className='w-[40px] overflow-hidden'>
+                    <Image className='w-[40px] h-[40px] object-cover border border-gray-400 rounded-full' src={image_url ? image_url : account} width={500} height={500} alt='account' />
                 </div>
                 <div className='flex flex-col'>
                     <p className='text-xs font-medium'>{name}</p>
@@ -75,8 +81,45 @@ const TestimonialCard: FC<{ name: string, designation: string, description: stri
 };
 
 const Testimonials = () => {
+    const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const loadingRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const fetchTestimonials = async () => {
+            try {
+                const response = await axios.get('/api/testimonials', {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                setTestimonials([...response.data.testimonials, ...dummyTestimonials]);
+            } catch (error) {
+                console.log(error)
+                setTestimonials(dummyTestimonials);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchTestimonials();
+    }, []);
+
+    useEffect(() => {
+        if (isLoading && loadingRef.current) {
+            gsap.to(loadingRef.current.children, {
+                opacity: 0,
+                yoyo: true,
+                repeat: -1,
+                stagger: 0.3,
+                duration: 0.5,
+            });
+        }
+    }, [isLoading]);
+
     return (
-        <div className='px-4 my-8'>
+        <section id='testimonials' className='px-4 my-8'>
             <div className='flex items-start justify-center my-12 space-x-6'>
                 <h1 className='text-5xl sm:text-7xl space-x-2 font-medium font-Inspiration relative'>
                     Some good words
@@ -85,33 +128,42 @@ const Testimonials = () => {
                     </div>
                 </h1>
             </div>
-            <div className="slider overflow-hidden py-8">
-                <div className='inner-slider inline-block'>
-                    <div className='flex'>
-                        {userTestimonials.map((testimonial, index) => (
-                            <TestimonialCard
-                                key={index}
-                                name={testimonial.name}
-                                designation={testimonial.designation}
-                                description={testimonial.description}
-                            />
-                        ))}
+            {isLoading ? (
+                <div className='flex justify-center items-center text-textColor'>
+                    <div className='flex items-center space-x-3'>
+                        <span className='text-sm'>Fetching Testimonials</span>
+                        <div ref={loadingRef} className='flex space-x-1'>
+                            <div className='w-1 h-1 bg-textColor rounded-full'></div>
+                            <div className='w-1 h-1 bg-textColor rounded-full'></div>
+                            <div className='w-1 h-1 bg-textColor rounded-full'></div>
+                        </div>
                     </div>
                 </div>
-                <div className='inner-slider  inline-block'>
-                    <div className='flex'>
-                        {userTestimonials.map((testimonial, index) => (
-                            <TestimonialCard
-                                key={index}
-                                name={testimonial.name}
-                                designation={testimonial.designation}
-                                description={testimonial.description}
-                            />
-                        ))}
+            ) : (
+                <div className="slider overflow-hidden pt-8">
+                    <div className='inner-slider inline-block'>
+                        <div className='flex'>
+                            {testimonials.map((testimonial, index) => (
+                                <TestimonialCard
+                                    key={index + 1}
+                                    {...testimonial}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                    <div className='inner-slider inline-block'>
+                        <div className='flex'>
+                            {testimonials.map((testimonial, index) => (
+                                <TestimonialCard
+                                    key={index + 2}
+                                    {...testimonial}
+                                />
+                            ))}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            )}
+        </section>
     )
 }
 

@@ -35,7 +35,7 @@ const Box: FC<BoxType> = ({ boxSize, skill }) => {
           height={500}
           alt="skill"
           src={skill.image}
-          className="w-full h-full object-cover"
+          className="w-full h-full md:w-2/3 md:h-2/3 object-cover"
         />
       )}
     </div>
@@ -115,20 +115,9 @@ function SkillsWrapper() {
 
   return (
     <div ref={keybordRef} className="skills-wrapper flex flex-col items-center h-full w-full overflow-hidden md:py-5">
-      {
-        boxCount > 7 && (
-          <div className="flex sm:-translate-x-9">
-            {
-              Array.from({ length: boxCount }).map((_, index) => (
-                <Box key={index} boxSize={boxSize} />
-              ))
-            }
-          </div>
-        )
-      }
       {imagesGroup.length > 0 &&
         imagesGroup.map((imageRow, rowIndex) => (
-          <div key={rowIndex} className={`flex ${rowIndex % 2 === 1 ? 'sm:-translate-x-10' : 'translate-x-0'}`}>
+          <div key={rowIndex} className={`flex ${rowIndex % 2 === 1 ? 'sm:-translate-x-14' : 'translate-x-0'}`}>
             {imageRow.map((image, colIndex) => (
               <Box key={colIndex} boxSize={boxSize} skill={image} />
             ))}
