@@ -183,7 +183,7 @@ const Chatbot: React.FC = () => {
                         />
                         <button
                             disabled={loading}
-                            className="bg-primaryColor p-3 h-full rounded-lg transition-all"
+                            className="w-[50px] bg-primaryColor p-3 h-full rounded-lg transition-all"
                         >
                             <IoSend className='text-2xl' />
                         </button>
