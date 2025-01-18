@@ -150,14 +150,18 @@ const VerticalNav = () => {
                 <nav ref={navRef} className="scale-0 w-screen h-screen opacity-0 z-[-1] absolute top-0 right-0 bottom-0 flex flex-col items-end text-3xl space-y-8 px-4 bg-black  justify-center overflow-hidden ">
                     {
                         NavbarConfig.map((config) => (
-                            <li key={config.name} className="list-none w-full text-center text-textColor hover:text-primaryColor cursor-pointer font-medium transition-all ease-in-out">{config.name}</li>
+                            <Link key={config.name} onClick={toggleHamburger} href={config.link} className="list-none w-full text-center text-textColor hover:text-primaryColor cursor-pointer font-medium transition-all ease-in-out">
+                                <li >{config.name}</li>
+                            </Link>
                         ))
                     }
                     <li className="list-none w-full text-center text-textColor  cursor-pointer font-medium transition-all ease-in-out">
-                        <button style={{
-                            background: 'linear-gradient(359deg, hsl(296deg 70.76% 29.44%), hsl(296 95% 30% / 1))',
-                            boxShadow: '5px 5px 10px rgb(0 0 0 / 30%), inset 5px 5px 8px hsl(296deg 80% 82% / 20%)',
-                        }} className='text-xl px-3 py-2 rounded-md'>Let&apos;s Build Together</button>
+                        <Link href="mailto:shoyeab07@gmail.com" target='_blank'>
+                            <button style={{
+                                background: 'linear-gradient(359deg, hsl(296deg 70.76% 29.44%), hsl(296 95% 30% / 1))',
+                                boxShadow: '5px 5px 10px rgb(0 0 0 / 30%), inset 5px 5px 8px hsl(296deg 80% 82% / 20%)',
+                            }} className='text-xl px-3 py-2 rounded-md'>Let&apos;s Build Together</button>
+                        </Link>
                     </li>
                 </nav>
             }
