@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect, ReactNode, SetStateAction } from 'r
 import gsap from 'gsap';
 
 import { BsFillInfoCircleFill } from "react-icons/bs";
-import toast from 'react-hot-toast';
 import axios from 'axios';
 import { ClipLoader } from 'react-spinners';
 import { MessageType } from './Chatbot';
