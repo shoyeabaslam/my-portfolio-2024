@@ -114,7 +114,7 @@ const Projects = () => {
                                 <h1 className='text-2xl font-semibold'>{project.project_title}</h1>
                                 <h1 className='text-textColor font-medium text-sm'>{project.project_description}</h1>
                                 <div className='text-textColor text-xs flex font-medium flex-col space-y-1'>
-                                    <h3 className='mr-2 py-[2px] mt-2'>Tools:</h3>
+                                    <h3 className='mr-2 py-[2px] mt-2 text-sm'>Technologies Used:</h3>
                                     <div className='w-full flex flex-wrap'>
                                         {project.technologies_used.map((tech, index) => (
                                             <p key={index} className='ml-1 bg-textColor text-cardColor mt-2 px-2 py-1 rounded-lg text-center text-xs flex items-center'>{tech}</p>
@@ -124,10 +124,10 @@ const Projects = () => {
                             </div>
                             <div className='flex items-center space-x-4 px-2 py-4'>
                                 <Link className='text-xs font-light hover:underline decoration-1 transition-all ease-in flex space-x-1 items-center' href={project.repo_link} target='_blank'>
-                                    <LuGithub /> <span>Repository</span>
+                                    <LuGithub /> <span>Explore Code</span>
                                 </Link>
                                 <Link className='text-xs font-light hover:underline decoration-1 mx-2 transition-all ease-in flex space-x-1 items-center' href={project.site_link} target='_blank'>
-                                    <FaLink /> <span>Open Live</span>
+                                    <FaLink /> <span>Try It Live</span>
                                 </Link>
                             </div>
                         </div>
