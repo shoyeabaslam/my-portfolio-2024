@@ -18,9 +18,7 @@ export async function POST(req: Request) {
             const getEmbeddingsResponse = await axios.post(getEmbeddingsUrl, {
                 input: inputText
             }, { headers: getEmbeddingsHeaders });
-
             embeddings = getEmbeddingsResponse.data.data.map((d: { embedding: number[] }) => d.embedding);
-
         } catch (getEmbeddingsError) {
             console.error('Error fetching embeddings from get-embeddings API:', getEmbeddingsError);
             return NextResponse.json({ error: 'Error fetching embeddings from get-embeddings API' }, { status: 500 });
