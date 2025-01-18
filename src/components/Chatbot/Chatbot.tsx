@@ -179,7 +179,7 @@ const Chatbot: React.FC = () => {
                             value={input}
                             onChange={handleInputChange}
                             placeholder="Type a message..."
-                            className="flex-1 p-3 rounded-lg border card-border bg-transparent text-white focus:outline-none outline-none transition-all"
+                            className="w-full p-3 rounded-lg border card-border bg-transparent text-white focus:outline-none outline-none transition-all"
                         />
                         <button
                             disabled={loading}
