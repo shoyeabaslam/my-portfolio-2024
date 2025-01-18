@@ -155,7 +155,7 @@ const Chatbot: React.FC = () => {
 
     return (
         <>
-            <div style={{ transform: 'scale(0)', transformOrigin: 'bottom right' }} ref={botContainerRef} className="fixed right-3 bottom-5 w-[90%] sm:w-[400px] h-[500px] md:h-[600px] overflow-hidden  bg-cardColor rounded-lg shadow-lg border border-white/5 shadow-shadowColor flex flex-col z-50">
+            <div style={{ transform: 'scale(0)', transformOrigin: 'bottom right' }} ref={botContainerRef} className="chatbot-scrollbar fixed right-3 bottom-5 w-[90%] sm:w-[400px] h-[500px] overflow-hidden  bg-cardColor rounded-lg shadow-lg border border-white/5 shadow-shadowColor flex flex-col z-50">
                 <div className="p-2 md:4 bg-primaryColor/60 text-white text-xl font-semibold rounded-t-lg flex justify-between items-center">
                     <div className='flex items-center space-x-2'>
                         <Image src={sLogo} width={200} height={200} className='w-5 md:w-7' alt='robot' />
