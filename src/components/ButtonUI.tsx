@@ -18,7 +18,7 @@ const ButtonUI: React.FC<ButtonUIProps> = ({
     const baseClasses = "font-medium py-3 px-6 rounded-lg transform transition-all duration-300 ease-in-out";
 
     const variantClasses = variant === 'contained'
-        ? "bg-gray-800 text-gray-100 active:translate-y-1 active:shadow-md"
+        ? "bg-gray-800 text-gray-100 active:translate-y-1 active:shadow-md border-2 border-primaryColor/20"
         : "bg-transparent text-primaryColor border-2 border-primaryColor active:bg-gray-700 active:border-gray-600";
 
     const gradientAndShadowStyles = color === 'primary'

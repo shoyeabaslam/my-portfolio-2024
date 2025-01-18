@@ -53,7 +53,7 @@ const renderElement = (element: string | string[], key: string) => {
                         {Array.isArray(element) && element.map((link: string, index: number) => (
                             <li key={index} className='w-full overflow-hidden'>
                                 <Link href={link} className="underline text-blue-500 break-words text-sm transition-transform duration-300 ease-in-out transform hover:scale-105 hover:text-blue-700" target='_blank' rel="noopener noreferrer">
-                                    {link.length > 35 ? `${link.substring(0, 35)}...` : link}
+                                    {link.length > 32 ? `${link.substring(0, 32)}...` : link}
                                 </Link>
                             </li>
                         ))}

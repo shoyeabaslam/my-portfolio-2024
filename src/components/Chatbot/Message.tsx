@@ -1,7 +1,12 @@
-import React, { useState, useRef, useEffect, ReactNode } from 'react';
+import React, { useState, useRef, useEffect, ReactNode, SetStateAction } from 'react';
 import gsap from 'gsap';
 
 import { BsFillInfoCircleFill } from "react-icons/bs";
+import toast from 'react-hot-toast';
+import axios from 'axios';
+import { ClipLoader } from 'react-spinners';
+import { MessageType } from './Chatbot';
+import XMLToHTMLComponent, { parseXML } from '../XMLToHTMLComponent';
 
 interface MessageProps {
     component: ReactNode | null;
@@ -49,25 +54,62 @@ const ContactHeadings = [
     "Something went wrong, but leave a message and I’ll get back to you.",
     "API error—share your thoughts, and I’ll help right away!",
     "Whoops! Connection failed—leave a message, and I’ll reach out to you.",
-    "API error-No worries! Leave a message, and I’ll get back to you."
+    "API error-No worries! Leave a message, and I’ll get back to you.",
+    "Having trouble? Drop a message and I'll respond ASAP!",
+    "Oops! Seems like there's an issue. Leave a message and I'll get back to you soon."
 ];
 
 
 
-const ContactForm: React.FC = () => {
+const ContactForm: React.FC<{ setBotMessages?: React.Dispatch<SetStateAction<MessageType[]>> }> = ({ setBotMessages }) => {
+    const heading = useState(ContactHeadings[Math.floor(Math.random() * ContactHeadings.length)])[0];
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
-
-    const handleSubmit = (e: React.FormEvent) => {
+    const [loading, setLoading] = useState(false);
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setLoading(true);
+        const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3000';
+        try {
+            const response = await axios.post(`${baseURL}/api/send-email`, { name, email, message });
+            if (response.status === 200) {
+                setName('');
+                setEmail('');
+                setMessage('');
+                if (setBotMessages) {
+                    setBotMessages(prev => {
+                        const botResponse = `<response><message>Thank you, ${name}! Your message has been received. I'll get back to you at ${email} as soon as possible.</message></response>`;
+                        const messages: MessageType[] = [
+                            ...prev,
+                            { text: <XMLToHTMLComponent parsedData={parseXML(botResponse)} />, sender: 'bot' }
+                        ]
+                        return messages
+                    })
+                }
+            }
+        } catch (error) {
+            console.log(error);
+            if (setBotMessages) {
+                setBotMessages(prev => {
+                    const botResponse = `<response><message>Sorry, ${name}. There was an error sending your message. Please try again later.</message></response>`;
+                    const messages: MessageType[] = [
+                        ...prev,
+                        { text: <XMLToHTMLComponent parsedData={parseXML(botResponse)} />, sender: 'bot' }
+                    ]
+                    return messages
+                })
+            }
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
         <div className="text-sm ">
             <p className='my-4  text-center  text-primaryColor font-semibold text-sm break-words space-x-4 flex flex-col items-center space-y-2'>
                 <BsFillInfoCircleFill className='text-2xl' />
-                <span>{ContactHeadings[Math.floor(Math.random() * ContactHeadings.length)]}</span>
+                <span>{heading}</span>
             </p>
             <form onSubmit={handleSubmit}>
                 <div className='flex flex-col space-y-2'>
@@ -104,7 +146,11 @@ const ContactForm: React.FC = () => {
                     />
                 </div>
                 <div className='my-2 w-full'>
-                    <button className='bg-primaryColor/80 w-full text-white rounded-md px-4 py-2'>Contact Me</button>
+                    <button className='bg-primaryColor/80 w-full text-white rounded-md px-4 py-2 flex items-center justify-center'>
+                        {
+                            loading ? <ClipLoader size={20} color='#fff' /> : <span>Contact Me!</span>
+                        }
+                    </button>
                 </div>
             </form>
         </div>

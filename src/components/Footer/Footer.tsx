@@ -22,7 +22,7 @@ const NavbarConfig = [
 ]
 const Footer = () => {
     return (
-        <footer className="bg-[#250727] text-white/70 py-4">
+        <footer className="bg-[#210024] text-white/70 py-4">
             <div className="container mx-auto text-center flex flex-col items-center space-y-2">
                 <Image src={sLogo} width={200} height={200} className="w-5 md:w-7" alt="robot" />
                 <h3 className="text-2xl font-semibold mb-4">Let&apos;s Connect</h3>
